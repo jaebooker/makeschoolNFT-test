@@ -4,13 +4,12 @@
 </head>
 
 <body>
-
-  <a href="https://opensea.io/assets/0x495f947276749ce646f68ac8c248420045cb7b5e/114202576718100464364515408500349303551825088591531595726314326089392594092033">
-    <img src="/msnew.png" alt="Make School New">
-    </a>
-    <a href="https://opensea.io/assets/0x495f947276749ce646f68ac8c248420045cb7b5e/114202576718100464364515408500349303551825088591531595726314326089392594092033">
-        <img src="/msnew.png" alt="Make School New">
-     </a>
-
+     <ul>
+      <% tokens.forEach(function(token) { %>
+        <a href=<%= token.permalink %> >
+          <img src=<%= token.image_url %> "alt="Make School New">
+          </a>
+    <% }); %>
+    </ul>
 </body>
 </html>

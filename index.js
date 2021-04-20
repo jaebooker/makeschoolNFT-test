@@ -9,12 +9,13 @@ const fetch = require('node-fetch');
 const url = 'https://api.opensea.io/api/v1/assets?collection=makecoin01';
 const options = {method: 'GET', qs: {order_direction: 'desc', offset: '0', limit: '20'}};
 let token_dict = {};
+let tokens;
 fetch(url, options)
   .then(res => res.json())
   .then(json => {
-    json.assets.forEach(element => {
+    tokens = json.assets;
+    tokens.forEach(element => {
       token_dict[element.token_id] = element.num_sales
-      console.log(token_dict)
     });
   })
   .catch(err => console.error('error:' + err));
@@ -23,5 +24,5 @@ express()
   .use(express.static(path.join(__dirname, 'public')))
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
-  .get('/', (req, res) => res.render('pages/index'))
+  .get('/', (req, res) => res.render('pages/index', {token_dict: token_dict, tokens: tokens}))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
