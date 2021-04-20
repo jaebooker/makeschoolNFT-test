@@ -14,9 +14,6 @@ fetch(url, options)
   .then(res => res.json())
   .then(json => {
     tokens = json.assets;
-    tokens.forEach(element => {
-      token_dict[element.token_id] = element.num_sales
-    });
   })
   .catch(err => console.error('error:' + err));
 
@@ -24,5 +21,5 @@ express()
   .use(express.static(path.join(__dirname, 'public')))
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
-  .get('/', (req, res) => res.render('pages/index', {token_dict: token_dict, tokens: tokens}))
+  .get('/', (req, res) => res.render('pages/index', {tokens: tokens}))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
