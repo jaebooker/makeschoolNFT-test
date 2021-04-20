@@ -6,9 +6,15 @@
 <body>
      <ul>
       <% tokens.forEach(function(token) { %>
-        <a href=<%= token.permalink %> >
-          <img src=<%= token.image_url %> "alt="Make School New">
-          </a>
+        <% if(token.num_sales==0){ %>
+          <a href=<%= token.permalink %> >
+            <img src=<%= token.image_url %> alt="Make School New">
+            </a>
+        <% } else { %>  
+          <a href=<%= token.permalink %> >
+            <img src="/msold.png" alt="Make School Old">
+            </a>
+       <% } %>
     <% }); %>
     </ul>
 </body>
