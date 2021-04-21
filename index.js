@@ -8,8 +8,7 @@ const fetch = require('node-fetch');
 // const url = 'https://api.opensea.io/api/v1/events/?collection_slug=makecoin01';
 const url = 'https://api.opensea.io/api/v1/assets?collection=makecoin01';
 const options = {method: 'GET', qs: {order_direction: 'desc', offset: '0', limit: '20'}};
-let token_dict = {};
-let tokens;
+var tokens;
 fetch(url, options)
   .then(res => res.json())
   .then(json => {
@@ -22,6 +21,12 @@ express()
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
   .get('/', function(req, res) { 
-    fetch(url, options);
+    fetch(url, options)
+      .then(res => res.json())
+      .then(json => {
+        tokens = json.assets;
+        console.log("I'm running!")
+      })
+      .catch(err => console.error('error:' + err));
     res.render('pages/index', {tokens: tokens})})
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
